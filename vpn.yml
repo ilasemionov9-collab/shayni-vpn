@@ -1,5 +1,5 @@
-# Автообновление каждые 3 часа — топ-3 сервера по скорости
-# Обновлено: 2026-06-13 11:58 UTC
+# Автообновление каждые 3 часа — топ-3 из каждой подписки
+# Обновлено: 2026-06-13 12:05 UTC
 proxies:
 - name: 🇩🇪 Germany
   type: vless
@@ -15,23 +15,9 @@ proxies:
   reality-opts:
     public-key: A_bQLZE6D32TJUdAf9doQTPaTUXyJjPXLSklplG4V1g
     short-id: 5882662bb19cc4ec
-- name: 🇳🇱 Holland ⭐
+- name: 🇳🇱 Holland
   type: vless
-  server: nl.locklance.lol
-  port: 443
-  uuid: 47ab09c5-b2cc-441f-b5e5-6782b722d3ee
-  udp: true
-  network: tcp
-  flow: xtls-rprx-vision
-  client-fingerprint: chrome
-  tls: true
-  servername: nl.locklance.lol
-  reality-opts:
-    public-key: UOEIvOJ7skJaLjoj-jcLCh16Pg3esdl6bhHAX8737xk
-    short-id: dce15538bd6b126e
-- name: 🇫🇮 Finland
-  type: vless
-  server: freefl.aiage.work
+  server: freenl.aiage.work
   port: 443
   uuid: 47ab09c5-b2cc-441f-b5e5-6782b722d3ee
   udp: true
@@ -39,10 +25,136 @@ proxies:
   flow: xtls-rprx-vision
   client-fingerprint: firefox
   tls: true
-  servername: freefl.aiage.work
+  servername: freenl.aiage.work
   reality-opts:
-    public-key: EqN5QtvWGccdkmL5ZNVDBRxRhWgr6g_vr3ABT8Q2dW4
-    short-id: 18d4c9282e848a97
+    public-key: gYMI6_kvxK_r6sOPHp91ZYYKSUQfSp8JADHB3ZfuGUo
+    short-id: 4614ac8b82b732d9
+- name: 🇭🇺 Hungary ⭐
+  type: vless
+  server: hu.locklance.lol
+  port: 443
+  uuid: 47ab09c5-b2cc-441f-b5e5-6782b722d3ee
+  udp: true
+  network: tcp
+  flow: xtls-rprx-vision
+  client-fingerprint: firefox
+  tls: true
+  servername: hu.locklance.lol
+  reality-opts:
+    public-key: mPzNFHO4pZMzFviRkIhRd7xDUz4dMHyI-flZLOrgDVg
+    short-id: 2f6c940cadef9918
+- name: 🇨🇭 Швейцария
+  type: vless
+  server: 45.195.137.112
+  port: 8443
+  uuid: bff7b258-8291-4298-bdee-991a92c1f33c
+  udp: true
+  network: tcp
+  flow: xtls-rprx-vision
+  client-fingerprint: firefox
+  tls: true
+  servername: storage.yandex.net
+  reality-opts:
+    public-key: IdqrygjwHBEMCOamBl7a504TVk6uMAtTRj0xLWcFcxY
+    short-id: cf9d145ad8f1ea55
+- name: 🇫🇷 Франция
+  type: vless
+  server: 45.196.224.176
+  port: 8443
+  uuid: 7e854867-65ae-416d-9c09-1a2e437e989b
+  udp: true
+  network: tcp
+  flow: xtls-rprx-vision
+  client-fingerprint: firefox
+  tls: true
+  servername: storage.yandex.net
+  reality-opts:
+    public-key: 1oUeBtHH4DskTM_jCh-6enWRkFMDX9l1OU5kWYl4kxA
+    short-id: ece180c605b5453c
+- name: 🇳🇱 Нидерланды 1
+  type: vless
+  server: nl2.panel11.ru
+  port: 443
+  uuid: 039a1658-e86e-475f-a3a4-67cc249acada
+  udp: true
+  network: tcp
+  flow: xtls-rprx-vision
+  client-fingerprint: firefox
+  tls: true
+  servername: nl2.panel11.ru
+  reality-opts:
+    public-key: N1HRDSdKHqdbSX_N5SUfFiokXcN-jQzu-Na244bA21I
+    short-id: c64556c616970b14
+- name: 🇳🇱 Нидерланды 2
+  type: vless
+  server: nl4.panel11.ru
+  port: 443
+  uuid: 039a1658-e86e-475f-a3a4-67cc249acada
+  udp: true
+  network: tcp
+  flow: xtls-rprx-vision
+  client-fingerprint: firefox
+  tls: true
+  servername: nl4.panel11.ru
+  reality-opts:
+    public-key: n4TFeuXAigmWJ9sXqnyicRkw3vcXy27ARfvhhsA61kI
+    short-id: 0bd0285f0c4f8f05
+- name: 🇳🇱 Нидерланды 3
+  type: vless
+  server: nl3.panel11.ru
+  port: 443
+  uuid: 039a1658-e86e-475f-a3a4-67cc249acada
+  udp: true
+  network: tcp
+  flow: xtls-rprx-vision
+  client-fingerprint: firefox
+  tls: true
+  servername: nl3.panel11.ru
+  reality-opts:
+    public-key: odHeTqoDcoPA6jeZStmaFPqoFg0ZiWwOKREEB0X-ez4
+    short-id: e069bfaf9ba2069c
+- name: Швеция 🇸🇪
+  type: vless
+  server: 31.76.34.87
+  port: 443
+  uuid: 9c387b24-56ea-458d-b113-ab750a4c9b7b
+  udp: true
+  network: tcp
+  flow: xtls-rprx-vision
+  client-fingerprint: firefox
+  tls: true
+  servername: ya.ru
+  reality-opts:
+    public-key: 9LuMI1vI6vzfZZv-2A5D24YgdvXXTXja2qNtKT-TpBQ
+    short-id: 355d76d8fe14a7df
+- name: Лондон 🇬🇧
+  type: vless
+  server: 109.73.65.116
+  port: 493
+  uuid: 20000020-3063-1376-f000-f6c850c0a020
+  udp: true
+  network: tcp
+  flow: xtls-rprx-vision
+  client-fingerprint: firefox
+  tls: true
+  servername: louisvuitton.com
+  reality-opts:
+    public-key: hoJugHeT_SOHhybvTE5gEEgEqsar9KrDtC5uP5qi5GY
+    short-id: 31cf122180c019f7
+- name: Нидерланды 🇳🇱
+  type: vless
+  server: freenl.aiage.work
+  port: 443
+  uuid: 47ab09c5-b2cc-441f-b5e5-6782b722d3ee
+  udp: true
+  network: tcp
+  flow: xtls-rprx-vision
+  client-fingerprint: firefox
+  tls: true
+  servername: freenl.aiage.work
+  reality-opts:
+    public-key: gYMI6_kvxK_r6sOPHp91ZYYKSUQfSp8JADHB3ZfuGUo
+    short-id: 85c7333f60d8834c
 proxy-groups:
 - name: 🚀 Авто
   type: url-test
@@ -51,14 +163,30 @@ proxy-groups:
   tolerance: 50
   proxies:
   - 🇩🇪 Germany
-  - 🇳🇱 Holland ⭐
-  - 🇫🇮 Finland
+  - 🇳🇱 Holland
+  - 🇭🇺 Hungary ⭐
+  - 🇨🇭 Швейцария
+  - 🇫🇷 Франция
+  - 🇳🇱 Нидерланды 1
+  - 🇳🇱 Нидерланды 2
+  - 🇳🇱 Нидерланды 3
+  - Швеция 🇸🇪
+  - Лондон 🇬🇧
+  - Нидерланды 🇳🇱
 - name: 🔰 Выбор
   type: select
   proxies:
   - 🚀 Авто
   - 🇩🇪 Germany
-  - 🇳🇱 Holland ⭐
-  - 🇫🇮 Finland
+  - 🇳🇱 Holland
+  - 🇭🇺 Hungary ⭐
+  - 🇨🇭 Швейцария
+  - 🇫🇷 Франция
+  - 🇳🇱 Нидерланды 1
+  - 🇳🇱 Нидерланды 2
+  - 🇳🇱 Нидерланды 3
+  - Швеция 🇸🇪
+  - Лондон 🇬🇧
+  - Нидерланды 🇳🇱
 rules:
 - MATCH,🔰 Выбор
