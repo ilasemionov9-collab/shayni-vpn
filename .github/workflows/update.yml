@@ -1,0 +1,56 @@
+name: Update VPN servers
+
+on:
+  schedule:
+    - cron: '0 */3 * * *'      # каждые 3 часа (UTC)
+  workflow_dispatch:            # ручной запуск кнопкой
+
+permissions:
+  contents: write               # право коммитить в репозиторий
+
+concurrency:
+  group: vpn-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install deps
+        run: pip install -r requirements.txt
+
+      - name: Download mihomo core
+        run: |
+          VERSION=$(curl -s https://api.github.com/repos/MetaCubeX/mihomo/releases/latest | grep -oP '"tag_name":\s*"\K[^"]+')
+          echo "mihomo $VERSION"
+          curl -L -o mihomo.gz "https://github.com/MetaCubeX/mihomo/releases/download/${VERSION}/mihomo-linux-amd64-compatible-${VERSION}.gz"
+          gunzip mihomo.gz
+          chmod +x mihomo
+
+      - name: Find fastest servers
+        env:
+          MIHOMO_BIN: ./mihomo
+          # Необязательно: прямая подписка из секрета (см. раздел «Важные примечания»)
+          # SUBSCRIPTION_URL: <синтаксис GitHub-секрета>
+        run: python main.py
+
+      - name: Commit & push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add vpn.yml
+          if git diff --staged --quiet; then
+            echo "Изменений нет"
+          else
+            git commit -m "auto: top-3 fastest ($(date -u '+%Y-%m-%d %H:%M UTC'))"
+            git push
+          fi
