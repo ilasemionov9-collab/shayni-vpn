@@ -25,7 +25,7 @@ DELAY_TIMEOUT = 5000              # мс на одну проверку заде
 TOP_N_FOR_SPEEDTEST = 8          # сколько лучших по задержке гнать на тест скорости
 FINAL_TOP = 3                    # сколько серверов записать в файл
 SPEEDTEST_BYTES = 10 * 1024 * 1024                  # 10 МБ тестовая загрузка
-SPEEDTEST_URL = f"https://speed.cloudflare.com/__down?bytes={SPEEDTEST_BYTES}"
+SPEEDTEST_URL = "https://speed.cloudflare.com/__down?bytes=" + str(SPEEDTEST_BYTES)
 
 CONTROLLER = "127.0.0.1:9090"
 MIXED_PORT = 7890
@@ -33,7 +33,7 @@ WORKDIR = Path("./.mihomo")
 OUTPUT_FILE = Path("vpn.yml")
 MIHOMO_BIN = os.environ.get("MIHOMO_BIN", "./mihomo")
 SUB_OVERRIDE = os.environ.get("SUBSCRIPTION_URL", "").strip()
-API = f"http://{CONTROLLER}"
+API = "http://" + CONTROLLER
 LOCAL_PROXY = {"http": f"http://127.0.0.1:{MIXED_PORT}",
                "https": f"http://127.0.0.1:{MIXED_PORT}"}
 
@@ -94,7 +94,7 @@ def try_subscription(url):
 
 def get_subscription():
     if SUB_OVERRIDE:
-        print(f"→ Использую SUBSCRIPTION_URL из секрета")
+        print("→ Использую SUBSCRIPTION_URL из секрета")
         data = try_subscription(SUB_OVERRIDE)
         if data:
             return data
@@ -104,11 +104,11 @@ def get_subscription():
     print("→ Читаю Telegram-канал @hiddifycode...")
     html = fetch_channel_html()
     candidates = list(reversed(extract_candidate_urls(html)))  # новые первыми
-    print(f"  ссылок-кандидатов: {len(candidates)}")
+    print("  ссылок-кандидатов: " + str(len(candidates)))
     for url in candidates:
         data = try_subscription(url)
         if data:
-            print(f"  ✓ рабочая подписка: {url}")
+            print("  ✓ рабочая подписка: " + url)
             return data
     print("✗ Не нашёл рабочую подписку в канале")
     sys.exit(1)
@@ -236,7 +236,7 @@ def parse_uri(uri):
         if uri.startswith("ss://"):
             return parse_ss(uri)
     except Exception as e:
-        print(f"   ! не разобрал ноду: {e}")
+        print("   ! не разобрал ноду: " + str(e))
     return None   # hysteria2 / tuic и пр. пропускаем
 
 
@@ -267,7 +267,7 @@ def dedupe(proxies):
         name, i = base, 1
         while name in seen:
             i += 1
-            name = f"{base} #{i}"
+            name = base + " #" + str(i)
         seen[name] = True
         p["name"] = name
         out.append(p)
@@ -289,7 +289,7 @@ def start_mihomo():
                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     for _ in range(40):
         try:
-            requests.get(f"{API}/version", timeout=2)
+            requests.get(API + "/version", timeout=2)
             return proc
         except Exception:
             time.sleep(0.5)
@@ -299,7 +299,7 @@ def start_mihomo():
 
 def test_delay(name):
     try:
-        r = requests.get(f"{API}/proxies/{urllib.parse.quote(name)}/delay",
+        r = requests.get(API + "/proxies/" + urllib.parse.quote(name) + "/delay",
                          params={"url": DELAY_TEST_URL, "timeout": DELAY_TIMEOUT},
                          timeout=DELAY_TIMEOUT / 1000 + 5)
         if r.status_code == 200:
@@ -311,7 +311,7 @@ def test_delay(name):
 
 def select_global(name):
     try:
-        requests.put(f"{API}/proxies/GLOBAL",
+        requests.put(API + "/proxies/GLOBAL",
                      json={"name": name}, timeout=10)
     except Exception:
         pass
@@ -348,18 +348,18 @@ def write_output(winner_dicts):
                 "proxies": ["🚀 Авто"] + names}],
            "rules": ["MATCH,🔰 Выбор"]}
     header = ("# Автообновление каждые 3 часа — топ-3 сервера по скорости\n"
-              f"# Обновлено: {time.strftime('%Y-%m-%d %H:%M UTC', time.gmtime())}\n")
+              "# Обновлено: " + time.strftime('%Y-%m-%d %H:%M UTC', time.gmtime()) + "\n")
     OUTPUT_FILE.write_text(
         header + yaml.safe_dump(out, allow_unicode=True, sort_keys=False),
         encoding="utf-8")
-    print(f"✓ Записано в {OUTPUT_FILE}")
+    print("✓ Записано в " + str(OUTPUT_FILE))
 
 
 # ---------- main ----------
 def main():
     raw = get_subscription()
     proxies = dedupe(parse_subscription(raw))
-    print(f"  серверов в подписке: {len(proxies)}")
+    print("  серверов в подписке: " + str(len(proxies)))
     if not proxies:
         print("✗ Подписка пустая или формат не поддержан")
         sys.exit(1)
@@ -380,20 +380,20 @@ def main():
         if not delays:
             print("✗ Ни один сервер не ответил")
             sys.exit(1)
-        print(f"  живых серверов: {len(delays)}")
+        print("  живых серверов: " + str(len(delays)))
 
         print("→ Тест скорости лучших по задержке...")
         scored = []
         for name, delay in delays[:TOP_N_FOR_SPEEDTEST]:
             spd = test_speed(name)
             scored.append((name, delay, spd))
-            print(f"   {spd:6.2f} МБ/с | {delay:>4} мс | {name}")
+            print("   %6.2f МБ/с | %4s мс | %s" % (spd, delay, name))
 
         scored.sort(key=lambda x: (-x[2], x[1]))   # сначала скорость, потом пинг
         winners = scored[:FINAL_TOP]
         print("→ ТОП-3:")
         for name, d, s in winners:
-            print(f"   ★ {name} | {d} мс | {s:.2f} МБ/с")
+            print("   ★ %s | %s мс | %.2f МБ/с" % (name, d, s))
 
         write_output([by_name[name] for name, _, _ in winners])
     finally:
