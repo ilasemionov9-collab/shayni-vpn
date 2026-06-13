@@ -1,1 +1,64 @@
-
+# Автообновление каждые 3 часа — топ-3 сервера по скорости
+# Обновлено: 2026-06-13 11:58 UTC
+proxies:
+- name: 🇩🇪 Germany
+  type: vless
+  server: freede.aiage.work
+  port: 443
+  uuid: 47ab09c5-b2cc-441f-b5e5-6782b722d3ee
+  udp: true
+  network: tcp
+  flow: xtls-rprx-vision
+  client-fingerprint: firefox
+  tls: true
+  servername: freede.aiage.work
+  reality-opts:
+    public-key: A_bQLZE6D32TJUdAf9doQTPaTUXyJjPXLSklplG4V1g
+    short-id: 5882662bb19cc4ec
+- name: 🇳🇱 Holland ⭐
+  type: vless
+  server: nl.locklance.lol
+  port: 443
+  uuid: 47ab09c5-b2cc-441f-b5e5-6782b722d3ee
+  udp: true
+  network: tcp
+  flow: xtls-rprx-vision
+  client-fingerprint: chrome
+  tls: true
+  servername: nl.locklance.lol
+  reality-opts:
+    public-key: UOEIvOJ7skJaLjoj-jcLCh16Pg3esdl6bhHAX8737xk
+    short-id: dce15538bd6b126e
+- name: 🇫🇮 Finland
+  type: vless
+  server: freefl.aiage.work
+  port: 443
+  uuid: 47ab09c5-b2cc-441f-b5e5-6782b722d3ee
+  udp: true
+  network: tcp
+  flow: xtls-rprx-vision
+  client-fingerprint: firefox
+  tls: true
+  servername: freefl.aiage.work
+  reality-opts:
+    public-key: EqN5QtvWGccdkmL5ZNVDBRxRhWgr6g_vr3ABT8Q2dW4
+    short-id: 18d4c9282e848a97
+proxy-groups:
+- name: 🚀 Авто
+  type: url-test
+  url: http://www.gstatic.com/generate_204
+  interval: 300
+  tolerance: 50
+  proxies:
+  - 🇩🇪 Germany
+  - 🇳🇱 Holland ⭐
+  - 🇫🇮 Finland
+- name: 🔰 Выбор
+  type: select
+  proxies:
+  - 🚀 Авто
+  - 🇩🇪 Germany
+  - 🇳🇱 Holland ⭐
+  - 🇫🇮 Finland
+rules:
+- MATCH,🔰 Выбор
